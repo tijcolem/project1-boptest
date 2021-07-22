@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import compression from 'compression'
 import {MongoClient} from 'mongodb'
 import AWS from 'aws-sdk'
 import boptestRouter from './routes/boptest'
@@ -22,6 +23,7 @@ MongoClient.connect(process.env.MONGO_URL).then((mongoClient) => {
   //app.use(bodyParser.text({ type: 'text/*' }))
   app.use(bodyParser.urlencoded())
   app.use(bodyParser.json())
+  app.use(compression())
   app.use('/', boptestRouter)
   app.use('/', boptestAdminRouter)
   app.use(errorHandler)
